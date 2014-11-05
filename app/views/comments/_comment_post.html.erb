@@ -1,0 +1,8 @@
+<em><%= comment.body %>
+  <% if show_post %> 
+    on <%= link_to post.title, post_path(post) %>
+  <% end %>
+</em>
+<span class="quiet">by <%= link_to comment.user.username, user_path(comment.user) %>
+                   on <%= display_datetime(comment.created_at) %>
+</span>

@@ -13,18 +13,17 @@
   </head>
   <body>
     <header>
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <%= render 'layouts/navigation' %>
-          </div>
+      <nav class="nav-bar navbar-default fixed-top" role="navigation">
+        <div class="container">
+          <%= render 'layouts/navigation' %>
         </div>
-      </div>
+      </nav>
     </header>
     <div id="main" role="main">
       <div class="container">
          <div class="row">
-          <div class="span12">
+          <div class="col-md-12">
+            <br/>
             <%= render 'layouts/messages' %>
             <%= yield %>
           </div>

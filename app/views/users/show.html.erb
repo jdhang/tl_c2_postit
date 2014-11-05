@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-8">
+    <h4>Profile: <%= @user.username %></h4>
+    <hr>
+    <div class="well">
+      <dl class="dl-horizontal">
+        <dt>Username: </dt>
+        <dd><%= @user.username %></dd>
+      </dl>
+    </div>
+
+    <h5><strong><%= @user.username %>'s Activity</strong></h5>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class='<%= 'active' if params[:tab].nil? %>'>
+        <%= link_to "Posts (#{@user.posts.size})", user_path(@user) %>
+      </li>
+      <li class='<%= 'active' if params[:tab] == "comments" %>'>
+        <%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %>
+      </li>
+    </ul>
+
+    <% if params[:tab].nil? %>
+      <% @user.posts.each do |post| %>
+        <div class="posts well">
+          <%= render 'posts/post', post: post %>
+        </div>
+      <% end %>
+    <% else %>
+      <% @user.comments.each do |comment| %>
+      <div class="col-md-12">
+        <div class="posts well">
+          <%= render 'comments/comment', comment: comment, show_post: true %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

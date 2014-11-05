@@ -1,0 +1,15 @@
+<h4>Create a Category</h4>
+
+<%= render 'layouts/error', object: @category %>
+
+<div class="col-md-4">
+  <div class="well">
+    <%= form_for @category do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <%= f.submit 'Add category', class: 'btn btn-primary' %>
+    <% end %>  
+  </div>
+</div>

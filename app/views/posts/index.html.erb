@@ -1,3 +1,6 @@
-<h3>Welcome!</h3>
+<h3>All Posts</h3>
+<hr>
 
-<p>This is the Postit template. You've access the PostsController, index action. This is the index template. Find me under app/views/posts folder.</p>
+<% @posts.order("created_at DESC").each do |post| %>
+  <%= render "posts", post: post %>
+<% end %>

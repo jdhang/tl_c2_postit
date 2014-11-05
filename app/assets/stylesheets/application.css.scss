@@ -12,6 +12,7 @@
  *= require_tree .
  */
 
+ @import "bootstrap-sprockets";
  @import "bootstrap";
 
  .container {
@@ -42,3 +43,35 @@ div.comment_votes {
   padding: 10px;
 }
 
+.posts {
+  margin-top: 10px;
+}
+
+.post-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  float: left;
+}
+
+.category_check_boxes input {
+  margin: 0;
+}
+
+.category_check_boxes .control label {
+}
+
+.category_link {
+  font-size: 0.9em;
+  background: #555;
+  border-radius: 15px;
+  padding: 3px 15px;
+  margin-right: 5px;
+}
+
+.category_link a {
+  color: white;
+}
+
+.category_link a:hover {
+  text-decoration: none;
+}

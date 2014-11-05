@@ -1,0 +1,32 @@
+<%= render 'layouts/error', object: @post %>
+
+<div class="col-md-7">
+  <div class="well">
+    <%= form_for @post do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control"%>
+      </div>
+      <div class="form-group">
+        <%= f.label :url %>
+        <%= f.text_field :url, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Category' %>
+        <br/>
+        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+          <% cb.label(class: "checkbox-inline") {cb.check_box(class: "checkbox") + cb.text} %>
+        <% end %>
+      </div>
+
+      <%= f.submit ( @post.new_record? ? "Create Post" : "Update Post"), class: "btn btn-primary" %>
+      <%= link_to 'Back', ( @post.new_record? ? posts_path : post_path(@post) ), class: 'btn btn-default' %>
+    <% end %> 
+  </div>
+</div>
+  

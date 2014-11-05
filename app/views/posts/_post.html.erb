@@ -1,0 +1,9 @@
+<%= render post.categories %>
+
+<h4><%= link_to post.title, fix_url(post.url) %></h4>
+<h5><%= post.description %></h5>
+<p>
+  <span style="font-style: italic">Created by <%= link_to post.user.username, user_path(post.user) %> at </span>
+  <span><%= display_datetime(post.created_at) %></span> 
+</p>
+<span style="font-size: 12px"><%= link_to "#{post.comments.size} comments", post_path(post) %></span>
