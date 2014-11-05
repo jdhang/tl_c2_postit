@@ -1,9 +1,32 @@
-<%= render post.categories %>
+<div class="row">
+  <div class="col-md-2">
+    <div class="posts well text-center">
+      <% if logged_in? %>
+        <%= link_to vote_post_path(post, vote: true), method: "post" do %>
+          <span class="glyphicon glyphicon-arrow-up"></span>
+        <% end %>
+      <% end %>
+      <br/>
+      <p><%= post.total_votes %> votes</p>
+      <% if logged_in? %>
+        <%= link_to vote_post_path(post, vote: false), method: "post" do %>
+          <span class="glyphicon glyphicon-arrow-down"></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-<h4><%= link_to post.title, fix_url(post.url) %></h4>
-<h5><%= post.description %></h5>
-<p>
-  <span style="font-style: italic">Created by <%= link_to post.user.username, user_path(post.user) %> at </span>
-  <span><%= display_datetime(post.created_at) %></span> 
-</p>
-<span style="font-size: 12px"><%= link_to "#{post.comments.size} comments", post_path(post) %></span>
+  <div class="col-md-8">
+    <div class="posts well">
+      <%= render post.categories %>
+
+      <h4><%= link_to post.title, fix_url(post.url) %></h4>
+      <h5><%= post.description %></h5>
+      <p>
+        <span style="font-style: italic">Created by <%= link_to post.user.username, user_path(post.user) %> at </span>
+        <span><%= display_datetime(post.created_at) %></span> 
+      </p>
+      <span style="font-size: 12px"><%= link_to "#{post.comments.size} comments", post_path(post) %></span>
+    </div>
+  </div>
+</div>

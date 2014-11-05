@@ -1,5 +1,6 @@
-<h4><%= link_to 'All Posts', posts_path %> » <%= @category.name %></h4>
+<h3><%= link_to 'All Posts', posts_path %> » <%= @category.name %></h3>
+<hr>
 
 <% @posts.order("created_at DESC").each do |post| %>
-  <%= render "posts/posts", post: post %>
+  <%= render "posts/post", post: post %>
 <% end %>

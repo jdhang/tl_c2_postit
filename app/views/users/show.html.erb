@@ -21,17 +21,11 @@
 
     <% if params[:tab].nil? %>
       <% @user.posts.each do |post| %>
-        <div class="posts well">
-          <%= render 'posts/post', post: post %>
-        </div>
+        <%= render 'posts/post', post: post %>
       <% end %>
     <% else %>
       <% @user.comments.each do |comment| %>
-      <div class="col-md-12">
-        <div class="posts well">
-          <%= render 'comments/comment', comment: comment, show_post: true %>
-        </div>
-      </div>
+        <%= render 'comments/comment', post: comment.post, comment: comment, show_post: true %>
       <% end %>
     <% end %>
 

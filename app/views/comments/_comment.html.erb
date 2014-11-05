@@ -1,10 +1,33 @@
-<% show_post ||= false %>
+<div class="row">
+  <div class="col-md-2">
+    <div class="posts well text-center">
+      <% if logged_in? %>
+        <%= link_to vote_post_comment_path(post, comment, vote: true), method: "post" do %>
+          <span class="glyphicon glyphicon-arrow-up"></span>
+        <% end %>
+      <% end %>
+      <br/>
+      <p><%= comment.total_votes %> votes</p>
+      <% if logged_in? %>
+        <%= link_to vote_post_comment_path(post, comment, vote: false), method: "post" do %>
+          <span class="glyphicon glyphicon-arrow-down"></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-<em><%= comment.body %>
-  <% if show_post %> 
-    on <%= link_to comment.post.title, post_path(comment.post) %>
-  <% end %>
-</em><br/>
-<span>by <%= link_to comment.user.username, user_path(comment.user) %>
-         at <%= display_datetime(comment.created_at) %>
-</span>
+  <div class="col-md-8">
+    <div class="posts well">
+      <% show_post ||= false %>
+
+      <em>"<%= comment.body %>"
+        <% if show_post %> 
+          on <%= link_to comment.post.title, post_path(comment.post) %>
+        <% end %>
+      </em><br/>
+      <span class="quiet">by <%= link_to comment.user.username, user_path(comment.user) %>
+               at <%= display_datetime(comment.created_at) %>
+      </span>
+    </div>
+  </div>
+</div>

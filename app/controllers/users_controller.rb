@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
   end
 
   def create
@@ -48,7 +47,7 @@ class UsersController < ApplicationController
 
     def require_same_user
       if current_user != @user
-        flash[:error] = "You are not allowed to do that..."
+        flash[:error] = "You do not have permission to do that!"
         redirect_to user_path(current_user)
       end
     end

@@ -1,8 +1,8 @@
 <h3 class="post-title"><%= post.title %></h3>
-<% if logged_in? %>
+<% if logged_in? && post_user? %>
   <span style="float: right">[<%= link_to 'edit this post', edit_post_path(post) %>]</span>
 <% end %>
 <div class="clearfix"></div>
-<p><span>by <%= post.user.username %> on <%= display_datetime(post.created_at) %></span></p>
+<p><span>by <%= link_to post.user.username, user_path(post.user) %> on <%= display_datetime(post.created_at) %></span></p>
 <p><%= @post.url %></p>
 <hr>

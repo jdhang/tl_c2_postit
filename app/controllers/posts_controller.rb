@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
   before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update]
 
   def index
     @posts = Post.all
@@ -40,6 +41,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def vote
+    post = Post.find(params[:id])
+    @vote = post.votes.create(vote: params[:vote], voteable: post, user_id: current_user.id)
+    
+    if @vote.valid?
+      flash[:notice] = "Your vote was counted."
+      redirect_to :back
+    else
+      flash[:error] = "You have already voted on this post."
+      redirect_to :back
+    end
+    
+  end
 
   private
     def post_params
@@ -48,6 +62,13 @@ class PostsController < ApplicationController
 
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def require_same_user
+      if current_user != @post.user
+        flash[:error] = "You do not have permission to do that."
+        redirect_to post_path(@post)
+      end
     end
 
 end

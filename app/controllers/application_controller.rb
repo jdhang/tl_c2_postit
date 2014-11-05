@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_categories
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :post_user?
 
   def current_user
 
@@ -15,6 +15,13 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
+  end
+
+  def post_user?
+
+    params[:post_id].nil? ? id = params[:id] : id = params[:post_id]
+
+    current_user == Post.find(id).user ? true : false
   end
 
   def require_user
