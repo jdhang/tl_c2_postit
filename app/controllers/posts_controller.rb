@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
   before_action :require_same_user, only: [:edit, :update]
 
@@ -42,17 +42,24 @@ class PostsController < ApplicationController
   end
 
   def vote
-    post = Post.find(params[:id])
-    @vote = post.votes.create(vote: params[:vote], voteable: post, user_id: current_user.id)
+    @vote = @post.votes.create(vote: params[:vote], voteable: @post, user_id: current_user.id)
     
-    if @vote.valid?
-      flash[:notice] = "Your vote was counted."
-      redirect_to :back
-    else
-      flash[:error] = "You have already voted on this post."
-      redirect_to :back
+    respond_to do |format|
+      format.html do
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "You have already voted on this post."
+        end
+
+        redirect_to :back
+      end
+
+      format.js do
+
+      end
     end
-    
+
   end
 
   private
@@ -61,7 +68,7 @@ class PostsController < ApplicationController
     end
 
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find_by(slug: params[:id])
     end
 
     def require_same_user

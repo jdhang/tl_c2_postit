@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
     params[:post_id].nil? ? id = params[:id] : id = params[:post_id]
 
-    current_user == Post.find(id).user ? true : false
+    current_user == Post.find_by(slug: id).user ? true : false
   end
 
   def require_user

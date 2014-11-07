@@ -2,14 +2,14 @@
   <div class="col-md-2">
     <div class="posts well text-center">
       <% if logged_in? %>
-        <%= link_to vote_post_comment_path(post, comment, vote: true), method: "post" do %>
+        <%= link_to vote_post_comment_path(post, comment, vote: true), method: "post", remote: true do %>
           <span class="glyphicon glyphicon-arrow-up"></span>
         <% end %>
       <% end %>
       <br/>
-      <p><%= comment.total_votes %> votes</p>
+      <p id="comment_<%= comment.slug %>_votes"><%= comment.total_votes %> votes</p>
       <% if logged_in? %>
-        <%= link_to vote_post_comment_path(post, comment, vote: false), method: "post" do %>
+        <%= link_to vote_post_comment_path(post, comment, vote: false), method: "post", remote: true do %>
           <span class="glyphicon glyphicon-arrow-down"></span>
         <% end %>
       <% end %>
