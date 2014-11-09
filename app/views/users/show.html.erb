@@ -6,28 +6,28 @@
       <dl class="dl-horizontal">
         <dt>Username: </dt>
         <dd><%= @user.username %></dd>
+        <dt>Time Zone: </dt>
+        <dd><%= @user.time_zone %></dd>
       </dl>
     </div>
 
     <h5><strong><%= @user.username %>'s Activity</strong></h5>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class='<%= 'active' if params[:tab].nil? %>'>
-        <%= link_to "Posts (#{@user.posts.size})", user_path(@user) %>
+    <ul id="profile-tabs" class="nav nav-tabs" role="tablist">
+      <li id="posts-tab" class='active'>
+        <%= link_to posts_user_path(@user), method: "post", remote: true do %>
+          Posts (<%= @user.posts.size %>)
+        <% end %>
       </li>
-      <li class='<%= 'active' if params[:tab] == "comments" %>'>
-        <%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %>
+      <li id="comments-tab">
+        <%= link_to "Comments (#{@user.comments.size})", comments_user_path(@user), method: "post", remote: true %>
       </li>
     </ul>
 
-    <% if params[:tab].nil? %>
+    <div id="tab-content">
       <% @user.posts.each do |post| %>
         <%= render 'posts/post', post: post %>
       <% end %>
-    <% else %>
-      <% @user.comments.each do |comment| %>
-        <%= render 'comments/comment', post: comment.post, comment: comment, show_post: true %>
-      <% end %>
-    <% end %>
+    </div>
 
   </div>
 </div>

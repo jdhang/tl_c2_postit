@@ -29,16 +29,32 @@ class UsersController < ApplicationController
     
     if @user.update(user_params)
       flash[:notice] = "Update was successful!"
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       render :edit
     end
 
   end
 
+  def posts
+    respond_to do |format|
+      format.js do
+      end
+    end
+  end
+
+  def comments
+    respond_to do |format|
+      format.js do
+      end
+    end
+
+  end
+
+
   private
     def user_params
-      params.require(:user).permit(:username, :password)
+      params.require(:user).permit(:username, :password, :time_zone)
     end
 
     def set_user

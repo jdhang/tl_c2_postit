@@ -1,0 +1,6 @@
+$("#profile-tabs").children().removeClass('active');
+$("#posts-tab").addClass('active');
+$("#tab-content").html("");
+<% @user.posts.each do |post| %>
+  $("#tab-content").append("<%= escape_javascript(render "posts/post", post: post ) %>");
+<% end %>

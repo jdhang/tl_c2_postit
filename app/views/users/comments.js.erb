@@ -1,0 +1,6 @@
+$("#profile-tabs").children().removeClass('active');
+$("#comments-tab").addClass('active');
+$("#tab-content").html("");
+<% @user.comments.each do |comment| %>
+  $("#tab-content").append("<%= escape_javascript(render "comments/comment", comment: comment, post: comment.post) %>");
+<% end %>

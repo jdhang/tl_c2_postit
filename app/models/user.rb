@@ -11,4 +11,13 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
 
   sluggable_column :username
+
+  def admin?
+    self.role == "admin"  
+  end
+
+  def moderator?
+    self.role == "moderator"
+  end
+
 end

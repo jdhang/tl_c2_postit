@@ -19,9 +19,12 @@
     <% else %>
       <li><%= link_to 'No Categories', '#' %></li>
     <% end %>
-    <% if logged_in? %>
+    <% if logged_in? && admin? %>
       <li role="presentation" class="divider"></li>
-      <li><%= link_to 'Add New Category', new_category_path, style: "font-weight: bold" %></li>
+      <li><%= link_to (new_category_path) do %>
+        <span class="glyphicon glyphicon-plus"></span> New Category
+      <% end %>
+      </li>
     <% end %>
     </ul>
   </li>
@@ -35,8 +38,14 @@
         <%= current_user.username %> <span class="caret"></span>
         </a>
       <ul class="dropdown-menu" role="menu">
-        <li><a href='/users/<%= current_user.id %>'><span class="glyphicon glyphicon-user"></span> View Profile</a></li>
-        <li><a href="/users/<%= current_user.id %>/edit"><span class="glyphicon glyphicon-pencil"></span> Edit Profile</a></li>
+        <li><%= link_to user_path(current_user) do %>
+          <span class="glyphicon glyphicon-user"></span> View Profile
+        <% end %>
+        </li>
+        <li><%= link_to edit_user_path(current_user) do %>
+          <span class="glyphicon glyphicon-pencil"></span> Edit Profile
+        <% end %>
+        </li>
         <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
       </ul>
     </li>

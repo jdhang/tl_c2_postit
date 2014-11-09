@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
+  before_action :require_admin, only: [:edit, :update]
   before_action :require_same_user, only: [:edit, :update]
 
   def index
@@ -43,7 +44,7 @@ class PostsController < ApplicationController
 
   def vote
     @vote = @post.votes.create(vote: params[:vote], voteable: @post, user_id: current_user.id)
-    
+
     respond_to do |format|
       format.html do
         if @vote.valid?
@@ -51,12 +52,9 @@ class PostsController < ApplicationController
         else
           flash[:error] = "You have already voted on this post."
         end
-
         redirect_to :back
       end
-
       format.js do
-
       end
     end
 
@@ -72,10 +70,7 @@ class PostsController < ApplicationController
     end
 
     def require_same_user
-      if current_user != @post.user
-        flash[:error] = "You do not have permission to do that."
-        redirect_to post_path(@post)
-      end
+      access_denied unless logged_in? and ( current_user == @post.user || current_user.admin? )
     end
 
 end
